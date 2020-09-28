@@ -8,7 +8,7 @@ class MotionManager:
         pass
 
     @classmethod
-    def process(cls, dt):
+    def tick(cls, dt):
         for ent in GameState.current_state["entities"]:
             if "pos" in ent and \
                "vel" in ent and \

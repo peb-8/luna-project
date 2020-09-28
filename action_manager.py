@@ -1,8 +1,28 @@
 from entity_manager import EntityManager
+from game_state import GameState
 import math
 
 class ActionManager:
 
+    @classmethod
+    def emit_particle(cls, process):
+        ent = EntityManager.get_by_id(process["payload"]["entity_id"])
+        GameState.get_value("entities").append({
+            "lifespan": .5,
+            "elapsed": .0,
+            "pos": ent["pos"][:],
+            "rot": .0,
+            "rvl": 0,
+            "rac": 0,
+            "vel": [-ent["vel"][0], -ent["vel"][1]],
+            "acc": [.0, .0],
+            "drawing": {
+                "type": "particle",
+                "color": [255, 255, 255],
+                "radius": 20
+            }
+        })
+        
     @classmethod
     def move_up(cls):
         ent = EntityManager.get_by_id(0)
@@ -28,6 +48,12 @@ class ActionManager:
         ent = EntityManager.get_by_id(0)
         ent["acc"][0] = 100.0*math.cos(ent["rot"])
         ent["acc"][1] = 100.0*math.sin(ent["rot"])
+        GameState.get_value("process").append({
+            "period": 1.0,
+            "action": "emit_particle",
+            "elapsed": 0.0,
+            "payload": {"entity_id": 0}
+        })
 
     @classmethod
     def thruster_off(cls):
@@ -57,8 +83,7 @@ class ActionManager:
     @classmethod
     def decay(cls, timer):
         ent = EntityManager.get_by_id(timer["payload"]["entity_id"])
-        ratio = timer["elapsed"]/timer["duration"]
+        ratio = timer["elapsed"]/timer["period"]
         ent["drawing"]["color"][0]=(1-ratio)*255
         ent["drawing"]["color"][1]=(1-ratio)*255
         ent["drawing"]["color"][2]=(1-ratio)*255
-        print(int(ratio*100))

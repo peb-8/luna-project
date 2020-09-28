@@ -1,4 +1,14 @@
 {
+    "process": [
+        {
+            "period": 3.0,
+            "action": "decay",
+            "elapsed": 0.0,
+            "payload": {
+                "entity_id": 1
+            }
+        }
+    ],
     "timers": [
         {
             "repeatable": false,

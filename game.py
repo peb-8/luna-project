@@ -5,6 +5,8 @@ from drawing_manager import DrawingManager
 from input_manager import InputManager
 from motion_manager import MotionManager
 from timer_manager import TimerManager
+from process_manager import ProcessManager
+from entity_manager import EntityManager
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE
 
 class Game(ac.Window):
@@ -26,7 +28,7 @@ class Game(ac.Window):
         """ Render the screen. """
         # Clear the screen
         ac.start_render()
-        DrawingManager.process()
+        DrawingManager.tick()
 
     def on_key_press(self, symbol, modifiers):
         InputManager.key_press(symbol)
@@ -35,5 +37,7 @@ class Game(ac.Window):
         InputManager.key_release(symbol)
 
     def on_update(self, dt):
-        MotionManager.process(dt)
-        TimerManager.process(dt)
+        MotionManager.tick(dt)
+        TimerManager.tick(dt)
+        ProcessManager.tick(dt)
+        EntityManager.tick(dt)
