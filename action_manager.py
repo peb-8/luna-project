@@ -7,6 +7,7 @@ class ActionManager:
     @classmethod
     def emit_particle(cls, process):
         ent = EntityManager.get_by_id(process["payload"]["entity_id"])
+        vel = math.sqrt(ent["vel"][0]*ent["vel"][0] + ent["vel"][1]*ent["vel"][1])
         GameState.get_value("entities").append({
             "lifespan": .5,
             "elapsed": .0,
@@ -14,7 +15,7 @@ class ActionManager:
             "rot": .0,
             "rvl": 0,
             "rac": 0,
-            "vel": [-ent["vel"][0], -ent["vel"][1]],
+            "vel": [vel*math.cos(ent["rot"]+math.pi), vel*math.sin(ent["rot"]+math.pi)],
             "acc": [.0, .0],
             "drawing": {
                 "type": "particle",
