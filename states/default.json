@@ -1,0 +1,75 @@
+{
+    "timers": [
+        {
+            "repeatable": false,
+            "duration": 3.0,
+            "step_action": "decay",
+            "elapsed": 0.0,
+            "payload": {
+                "entity_id": 1
+            }
+        }
+    ],
+    "bindings": [
+        {
+            "type": "keyboard",
+            "key_action": "pressed",
+            "key": 65362,
+            "action": "thruster_on"
+        },
+        {
+            "type": "keyboard",
+            "key_action": "released",
+            "key": 65362,
+            "action": "thruster_off"
+        },
+        {
+            "type": "keyboard",
+            "key_action": "pressed",
+            "key": 65361,
+            "action": "thruster_left_on"
+        },
+        {
+            "type": "keyboard",
+            "key_action": "pressed",
+            "key": 65363,
+            "action": "thruster_right_on"
+        },
+        {
+            "type": "keyboard",
+            "key_action": "released",
+            "key": 65361,
+            "action": "thruster_left_off"
+        },
+        {
+            "type": "keyboard",
+            "key_action": "released",
+            "key": 65363,
+            "action": "thruster_right_off"
+        }
+    ],
+    "entities": [
+        {
+            "pos": [200.0, 200.0],
+            "rot": 0.0,
+            "rvl": 0,
+            "rac": 0,
+            "vel": [0.0, 0.0],
+            "acc": [0.0, 0.0],
+            "drawing": {
+                "type": "filled_triangle",
+                "color": [255, 0, 0],
+                "radius": 40
+            }
+        },
+        {
+            "pos": [100.0, 100.0],
+            "rot": 0.0,
+            "drawing": {
+                "type": "filled_circle",
+                "color": [255, 255, 255],
+                "radius": 20
+            }
+        }
+    ]
+}
