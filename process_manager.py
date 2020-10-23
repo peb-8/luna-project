@@ -5,8 +5,8 @@ class ProcessManager:
 
     @classmethod
     def tick(cls, dt):
-         for ps in GameState.current_state["process"]:
-            ps["elapsed"]+=dt
-            if ps["elapsed"] >= ps["period"]:
-                ps["period"] = ps["elapsed"]-ps["period"]
-            getattr(ActionManager, ps["action"])(ps)
+         for ob in GameState.current_state["process"]:
+            ob["elapsed"]+=dt
+            if ob["elapsed"] >= ob["period"]:
+                ob["period"] = ob["elapsed"]-ob["period"]
+            getattr(ActionManager, ob["action"])(ob["payload"])

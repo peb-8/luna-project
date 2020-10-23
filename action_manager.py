@@ -1,28 +1,20 @@
 from entity_manager import EntityManager
 from game_state import GameState
 import math
+from factory import Factory
 
 class ActionManager:
 
     @classmethod
-    def emit_particle(cls, process):
-        ent = EntityManager.get_by_id(process["payload"]["entity_id"])
-        vel = math.sqrt(ent["vel"][0]*ent["vel"][0] + ent["vel"][1]*ent["vel"][1])
-        GameState.get_value("entities").append({
-            "lifespan": .5,
-            "elapsed": .0,
-            "pos": ent["pos"][:],
-            "rot": .0,
-            "rvl": 0,
-            "rac": 0,
-            "vel": [vel*math.cos(ent["rot"]+math.pi), vel*math.sin(ent["rot"]+math.pi)],
-            "acc": [.0, .0],
-            "drawing": {
-                "type": "particle",
-                "color": [255, 255, 255],
-                "radius": 20
-            }
-        })
+    def emit_particle(cls, payload):
+        ent_id = payload["entity_id"]
+        ent = EntityManager.get_by_id(ent_id)
+        GameState.get_value("entities").append(
+            Factory.create_particle(
+                ent["pos"].copy(), .0,
+                math.sqrt(ent["vel"][0]*ent["vel"][0] + ent["vel"][1]*ent["vel"][1])
+            )
+        )
         
     @classmethod
     def move_up(cls):
@@ -49,17 +41,16 @@ class ActionManager:
         ent = EntityManager.get_by_id(0)
         ent["acc"][0] = 100.0*math.cos(ent["rot"])
         ent["acc"][1] = 100.0*math.sin(ent["rot"])
-        GameState.get_value("process").append({
-            "period": 1.0,
-            "action": "emit_particle",
-            "elapsed": 0.0,
-            "payload": {"entity_id": 0}
-        })
+        GameState.get_value("process").append(
+            Factory.create_process(
+                1.0, "emit_particle", {"entity_id": 0}
+            )
+        )
 
     @classmethod
     def thruster_off(cls):
         ent = EntityManager.get_by_id(0)
-        ent["acc"] = [0.0, 0.0]
+        ent["acc"] = [.0, .0]
 
     @classmethod
     def thruster_left_on(cls):
@@ -74,17 +65,21 @@ class ActionManager:
     @classmethod
     def thruster_left_off(cls):
         ent = EntityManager.get_by_id(0)
-        ent["rac"] = 0.0
+        ent["rac"] = .0
 
     @classmethod
     def thruster_right_off(cls):
         ent = EntityManager.get_by_id(0)
-        ent["rac"] = 0.0
+        ent["rac"] = .0
 
     @classmethod
-    def decay(cls, timer):
-        ent = EntityManager.get_by_id(timer["payload"]["entity_id"])
-        ratio = timer["elapsed"]/timer["period"]
+    def decay(cls, payload):
+        ent_id = payload["entity_id"]
+        ent = EntityManager.get_by_id(ent_id)
+        timer_id = payload["timer_id"]
+        timer = GameState.current_state["timers"][timer_id]
+        print(timer)
+        ratio = timer["elapsed"]/timer["duration"]
         ent["drawing"]["color"][0]=(1-ratio)*255
         ent["drawing"]["color"][1]=(1-ratio)*255
         ent["drawing"]["color"][2]=(1-ratio)*255

@@ -6,10 +6,10 @@ class TimerManager:
     @classmethod
     def tick(cls, dt):
         timers = GameState.current_state["timers"]
-        for id, timer in enumerate(timers):
-            timer["elapsed"]+=dt
-            if timer["elapsed"] >= timer["duration"]:
-                timer["duration"] = timer["elapsed"]
+        for id, ob in enumerate(timers):
+            ob["elapsed"]+=dt
+            if ob["elapsed"] >= ob["duration"]:
+                ob["duration"] = ob["elapsed"]
+                getattr(ActionManager, ob["action"])(ob["payload"])
                 del timers[id]
-            if "action" in timer:
-                getattr(ActionManager, timer["action"])(timer)
+                
