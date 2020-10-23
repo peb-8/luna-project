@@ -1,9 +1,10 @@
 import math
 
+
 class Factory:
-    
+
     @classmethod
-    def create_particle(cls, pos:list, rot:float, abs_vel:float)->dict:
+    def create_particle(cls, pos: list, rot: float, abs_vel: float) -> dict:
         assert type(pos) == list
         assert type(rot) == float
         assert type(abs_vel) == float
@@ -24,7 +25,7 @@ class Factory:
         )
 
     @classmethod
-    def create_entity(cls, pos:list, rot:float, vel:list, rvl:float)->dict:
+    def create_entity(cls, pos: list, rot: float, vel: list, rvl: float) -> dict:
         assert type(pos) == list
         assert type(rot) == float
         assert type(vel) == list
@@ -39,7 +40,7 @@ class Factory:
         }
 
     @classmethod
-    def create_process(cls, period:float, action:str, payload:dict={})->dict:
+    def create_process(cls, period: float, action: str, payload: dict = {}) -> dict:
         assert type(period) == float
         assert type(action) == str
         assert type(payload) == dict
@@ -51,7 +52,7 @@ class Factory:
         }
 
     @classmethod
-    def create_timer(cls, duration:float, action:str, payload:dict={})->dict:
+    def create_timer(cls, duration: float, action: str, payload: dict = {}) -> dict:
         assert type(duration) == float
         assert type(action) == str
         assert type(payload) == dict
@@ -63,7 +64,7 @@ class Factory:
         }
 
     @classmethod
-    def create_binding(cls, binding_type:str, key_action:str, key:int, action:str, payload:dict={})->dict:
+    def create_binding(cls, binding_type: str, key_action: str, key: int, action: str, payload: dict={}) -> dict:
         assert type(binding_type) == str
         assert type(key_action) == str
         assert type(key) == int

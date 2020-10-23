@@ -1,23 +1,24 @@
 from constants import GAME_STATES_FOLDER
 import json
 
+
 class GameState:
 
     current_state = {}
-    
-    @staticmethod
-    def load(state_name:str):
-        assert type(state_name) == str
-        assert len(state_name) > 0
-        with open(f"./{GAME_STATES_FOLDER}/{state_name}.json", "r") as state_file:
-            GameState.current_state = json.load(state_file)
 
     @staticmethod
-    def save(state_name:str):
+    def load(state_name: str):
         assert type(state_name) == str
         assert len(state_name) > 0
-        with open(f"./{GAME_STATES_FOLDER}/{state_name}.json", "w") as state_file:
-            json.dump(GameState.current_state, state_file)
+        with open(f"./{GAME_STATES_FOLDER}/{state_name}.json", "r") as f:
+            GameState.current_state = json.load(f)
+
+    @staticmethod
+    def save(state_name: str):
+        assert type(state_name) == str
+        assert len(state_name) > 0
+        with open(f"./{GAME_STATES_FOLDER}/{state_name}.json", "w") as f:
+            json.dump(GameState.current_state, f)
 
     @staticmethod
     def get_node(path):
@@ -28,7 +29,7 @@ class GameState:
                     current_node = current_node[int(part)]
                 elif type(current_node) == dict:
                     current_node = current_node[part]
-            except:
+            except Exception:
                 raise Exception("Unknow path: " + path)
         return current_node
 
@@ -42,5 +43,5 @@ class GameState:
             path_lst = path.split(".")
             node = GameState.get_node(".".join(path_lst[:-1]))
             node[path_lst[-1]] = value
-        except:
+        except Exception:
             raise Exception("Unknow path: " + path)

@@ -6,8 +6,8 @@ from managers.input_manager import InputManager
 from managers.motion_manager import MotionManager
 from managers.timer_manager import TimerManager
 from managers.process_manager import ProcessManager
-from managers.entity_manager import EntityManager
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE
+
 
 class Game(ac.Window):
     """ Main application class. """
@@ -36,7 +36,7 @@ class Game(ac.Window):
     def on_key_release(self, symbol, modifiers):
         InputManager.key_release(symbol)
 
-    def on_update(self, dt):
+    def on_update(self, dt: float):
         MotionManager.tick(dt)
         TimerManager.tick(dt)
         ProcessManager.tick(dt)

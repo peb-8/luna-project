@@ -2,9 +2,10 @@ from game_state import GameState
 from entity_manager import EntityManager
 from constants import GAME_STATES_FOLDER
 
+
 class Test:
 
-    @classmethod 
+    @classmethod
     def setup_class(cls):
         GameState.current_state = {
             "test": {
@@ -21,19 +22,19 @@ class Test:
         GameState.save("test")
         GameState.current_state = None
 
-    @classmethod 
+    @classmethod
     def teardown_class(cls):
         import os
-        os.remove(f"./{GAME_STATES_FOLDER}/test.json") 
+        os.remove(f"./{GAME_STATES_FOLDER}/test.json")
 
     def test_game_state_saving_and_loading(self):
         GameState.load("test")
-        assert GameState.current_state != None
-        
+        assert GameState.current_state is not None
+
     def test_game_state_reading_value(self):
         val1 = GameState.get_value("test.val1")
         assert type(val1) == bool
-        assert val1 == True
+        assert val1
         val2 = GameState.get_value("test.val2")
         assert type(val2) == int
         assert val2 == 85
@@ -51,16 +52,15 @@ class Test:
         GameState.set_value("test.val3.2.to_change", True)
         to_change = GameState.get_value("test.val3.2.to_change")
         assert type(to_change) == bool
-        assert to_change == True
+        assert to_change
 
     def test_entity_manager_checking(self):
         id_doublon_detected = False
         try:
             EntityManager.check_all()
-        except:
+        except Exception:
             id_doublon_detected = True
         if not id_doublon_detected:
             raise "Entity manager has missed an id doublon"
         GameState.set_value("entities.1.id", 1)
         EntityManager.check_all()
-

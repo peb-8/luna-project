@@ -1,5 +1,6 @@
 from game_state import GameState
 
+
 class EntityManager:
 
     @classmethod
@@ -18,7 +19,7 @@ class EntityManager:
         for id, ent in enumerate(GameState.current_state["entities"]):
             if "lifespan" in ent:
                 if "elapsed" in ent:
-                    ent["elapsed"]+=dt
+                    ent["elapsed"] += dt
                     if ent["elapsed"] >= ent["lifespan"]:
                         ent["elapsed"] = ent["lifespan"]
                         cls.remove_by_id(id)

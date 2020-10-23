@@ -1,6 +1,7 @@
 from game_state import GameState
 from .action_manager import ActionManager
 
+
 class InputManager:
 
     @classmethod
@@ -24,7 +25,7 @@ class InputManager:
                     action = binding["action"]
                     assert type(action) == str
                     assert action
-        
+
     @classmethod
     def key_press(cls, symbol):
         for binding in GameState.current_state["bindings"]:
@@ -44,3 +45,4 @@ class InputManager:
                         action = binding["action"]
                         print(action)
                         getattr(ActionManager, action)()
+

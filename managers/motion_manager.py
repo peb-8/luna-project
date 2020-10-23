@@ -1,5 +1,5 @@
 from game_state import GameState
-import arcade as ac
+
 
 class MotionManager:
 
@@ -15,9 +15,9 @@ class MotionManager:
                "acc" in ent and \
                "rot" in ent and \
                "rvl" in ent:
-                ent["vel"][0]+=ent["acc"][0]*dt
-                ent["vel"][1]+=ent["acc"][1]*dt
-                ent["pos"][0]+=ent["vel"][0]*dt
-                ent["pos"][1]+=ent["vel"][1]*dt
-                ent["rot"]+=ent["rvl"]*dt
-                ent["rvl"]+=ent["rac"]*dt
+                ent["vel"][0] += ent["acc"][0]*dt
+                ent["vel"][1] += ent["acc"][1]*dt
+                ent["pos"][0] += ent["vel"][0]*dt
+                ent["pos"][1] += ent["vel"][1]*dt
+                ent["rot"] += ent["rvl"]*dt
+                ent["rvl"] += ent["rac"]*dt
