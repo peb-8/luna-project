@@ -1,4 +1,5 @@
 import math
+
 class Factory:
     
     @classmethod

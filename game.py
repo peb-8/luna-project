@@ -1,12 +1,12 @@
 import arcade as ac
 from game_state import GameState
-from entity_manager import EntityManager
-from drawing_manager import DrawingManager
-from input_manager import InputManager
-from motion_manager import MotionManager
-from timer_manager import TimerManager
-from process_manager import ProcessManager
-from entity_manager import EntityManager
+from managers.entity_manager import EntityManager
+from managers.drawing_manager import DrawingManager
+from managers.input_manager import InputManager
+from managers.motion_manager import MotionManager
+from managers.timer_manager import TimerManager
+from managers.process_manager import ProcessManager
+from managers.entity_manager import EntityManager
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE
 
 class Game(ac.Window):

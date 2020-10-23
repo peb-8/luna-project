@@ -1,4 +1,4 @@
-from entity_manager import EntityManager
+from .entity_manager import EntityManager
 from game_state import GameState
 import math
 from factory import Factory
